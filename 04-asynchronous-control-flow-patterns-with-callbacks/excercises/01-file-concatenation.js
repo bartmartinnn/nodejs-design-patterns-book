@@ -1,5 +1,4 @@
 import { readFile, writeFile } from 'node:fs'
-import { join } from 'node:path'
 
 function concatFiles(dest, cb, ...files){
     //there can be multiple files
