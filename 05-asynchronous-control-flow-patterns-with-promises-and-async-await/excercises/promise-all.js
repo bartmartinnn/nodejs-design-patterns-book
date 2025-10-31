@@ -12,31 +12,12 @@ function createRejectedPromise(error, delay) {
 
 // Example custom Promise.all implementation to test
 function myPromiseAll(promises) {
-  return new Promise((resolve, reject) => {
-    // Handle empty array
-    if (promises.length === 0) {
-      return resolve([])
-    }
-    
-    const results = new Array(promises.length)
-    let completedCount = 0
-    
-    promises.forEach((promise, index) => {
-      // Convert non-promises to promises
-      Promise.resolve(promise)
-        .then(value => {
-          results[index] = value
-          completedCount++
-          
-          if (completedCount === promises.length) {
-            resolve(results)
-          }
-        })
-        .catch(error => {
-          reject(error) // Fail fast on first rejection
-        })
+    return new Promise((resolve, reject) => {
+        if (promises.length === 0) {
+            return resolve([])
+        }
+    return resolve([])
     })
-  })
 }
 
 export { createDelayedPromise, createRejectedPromise, myPromiseAll }
