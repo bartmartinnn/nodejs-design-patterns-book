@@ -1,3 +1,5 @@
+import {runAllTests} from './promise-all-tests.js'
+
 function createDelayedPromise(value, delay) {
   return new Promise((resolve) => {
     setTimeout(resolve, delay, value)
@@ -16,8 +18,26 @@ function myPromiseAll(promises) {
         if (promises.length === 0) {
             return resolve([])
         }
-    return resolve([])
+
+        const results = new Array(promises.length)
+        let completedCount = 0
+
+        promises.forEach((promise, index) => {
+            Promise.resolve(promise)
+            .then(value => {
+                results[index] = value
+                completedCount++
+                
+                if (completedCount === promises.length) {
+                    resolve(results)
+                }
+            })
+            .catch(error => {
+                reject(error)
+            })
+        });
     })
 }
 
 export { createDelayedPromise, createRejectedPromise, myPromiseAll }
+runAllTests()
